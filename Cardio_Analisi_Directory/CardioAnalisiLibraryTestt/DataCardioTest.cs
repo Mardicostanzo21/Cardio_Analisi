@@ -40,5 +40,12 @@ namespace CardioAnalisiLibraryTestt
             string risultato = cardio.BattitARiposo(59);
             Assert.AreEqual("Bradicardia", risultato);
         }
+        [TestMethod]
+        public void TestCalorieBruciateUomini()
+        {
+            DataCardio cardio = new DataCardio();
+            double caloriebruciate = cardio.CalorieBruciateUomini(60, 80.5, 90, 18);
+            Assert.AreEqual(791.358986615679, caloriebruciate);
+        }
     }
 }

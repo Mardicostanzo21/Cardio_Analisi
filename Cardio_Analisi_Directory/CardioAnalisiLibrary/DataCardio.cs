@@ -44,7 +44,7 @@ namespace CardioAnalisiLibrary
             return minbattitipalestra;
         }
 
-           //Questo metodo prende i battiti di una persona in input e ti dice se sei bradicardiaco,tachicardiaco o con un numero di battiti nella norma
+           //Questo metodo prende i battiti di una persona in input e ti dice se sei bradicardiaco,tachicardiaco o con un numero di battiti nella norma 
 
         public string BattitARiposo(double battiti)
         {
@@ -63,6 +63,20 @@ namespace CardioAnalisiLibrary
             }
 
             return risposta;
+        }
+
+        public double CalorieBruciateUomini (int duratasessione, double peso, double freqcardmedia, int eta)
+        {
+            double c = 0;
+            c = ((eta * 0.2017) + (peso * 0.199) + (freqcardmedia + 0.6309) - 55.0969) * duratasessione / 4.184;
+            return c;
+        }
+
+        public double CalorieBruciateDonne (int duratasessione, double peso, double freqcardmedia, int eta)
+        {
+            double c = 0;
+            c = ((eta * 0.074) + (peso * 0.126) + (freqcardmedia + 0.4472) - 20.4022) * duratasessione / 4.184;
+            return c;
         }
 
     }
