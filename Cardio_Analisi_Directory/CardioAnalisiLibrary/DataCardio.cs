@@ -69,6 +69,7 @@ namespace CardioAnalisiLibrary
         {
             double c = 0;
             c = ((eta * 0.2017) + (peso * 0.199) + (freqcardmedia + 0.6309) - 55.0969) * duratasessione / 4.184;
+            c = Math.Round(c, 2);
             return c;
         }
 
@@ -76,8 +77,73 @@ namespace CardioAnalisiLibrary
         {
             double c = 0;
             c = ((eta * 0.074) + (peso * 0.126) + (freqcardmedia + 0.4472) - 20.4022) * duratasessione / 4.184;
+            c = Math.Round(c, 2);
             return c;
         }
 
+        public double SpesaEnergeticaCorsa (int kmpercorsi, int kgpesocorporeo)
+        {
+            double spesa = 0.9 * kmpercorsi + kgpesocorporeo;
+            spesa = Math.Round(spesa, 2);
+            return spesa;
+        }
+
+        public double SpesaEnergeticaCamminata(int kmpercorsi, int kgpesocorporeo)
+        {
+            double spesa = 0.5 * kmpercorsi + kgpesocorporeo;
+            spesa = Math.Round(spesa, 2);
+            return spesa;
+        }
+
+        public double CalcoloMediaBattitiGiornaliera(int[] battitiogniora)
+        {
+            double media = 0;
+            for (int i = 0; i < battitiogniora.Length; i++)
+            {
+                media = media + battitiogniora[i];
+            }
+            media = media / battitiogniora.Length;
+            return media;
+        }
+
+        //Per calcolare il battito cardiiaco a riposo bisogna prendere il bpm dopo essersi svegliati prendere minimo 4 valori
+        //e poi fare la media
+        public double CalcoloBattitiRiposo(int[]battitigiornalieri)
+        {
+            double media = CalcoloMediaBattitiGiornaliera(battitigiornalieri);
+            return media;
+        }
+
+        public int[] OrdineCrescente(int[] battitigiornata)
+        {
+            int temp = 0;
+            for (int j = 0; j < (battitigiornata.Length - 1); j++)
+            {
+                for (int i = 0; i < (battitigiornata.Length - 1); i++)
+                {
+                    if (battitigiornata[i] > battitigiornata[i + 1])
+                    {
+                        temp = battitigiornata[i];
+                        battitigiornata[i] = battitigiornata[i + 1];
+                        battitigiornata[i + 1] = temp;
+                    }
+                }
+            }
+            return battitigiornata;
+        }
+
+        public double HRV (double[]tempotraduebatti)
+        {
+            double frequenza = 0;
+            double moltiplicazione;
+            moltiplicazione = tempotraduebatti[0];
+            for(int i = 1; i < tempotraduebatti.Length; i++)
+            {
+                moltiplicazione = moltiplicazione * tempotraduebatti[i];
+            }
+            frequenza = 1 / moltiplicazione;
+            frequenza = Math.Round(frequenza, 2);
+            return frequenza;
+        }
     }
 }
